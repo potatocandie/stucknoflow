@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pertanyaan;
+use App\Like;
 
 class PagesController extends Controller
 {
@@ -20,6 +21,16 @@ class PagesController extends Controller
     public function show($id)
     {
         $pertanyaan = Pertanyaan::findOrFail($id);
-        return view('pages.show', ['pertanyaan' => $pertanyaan]);
+        $likes = Like::where('pertanyaan_id', $id)->get();
+        $count = 0;
+
+        foreach ($likes as $like) {
+            $count += $like->like;
+        }
+
+        return view('pages.show', [
+            'count' => $count,
+            'pertanyaan' => $pertanyaan
+        ]);
     }
 }

@@ -16,6 +16,10 @@
         background-color: #f7aa6d;
     }
 
+    .text-powder-orange {
+        color: #f7aa6d;
+    }
+
     .bg-powder-orange-soft {
         background-color: #fee3cf;
     }

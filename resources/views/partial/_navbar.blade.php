@@ -4,10 +4,10 @@
             <strong><span class="nav-link text-light">Stucknoflow</span></strong>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href="{{ url('/') }}">Home</a>
+            <a class="nav-link text-light" href="{{ url('/') }}">Beranda</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href="{{ url('/about') }}">About</a>
+            <a class="nav-link text-light" href="{{ url('/about') }}">Tentang Kami</a>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">

@@ -56,7 +56,7 @@
                             {{ $jawaban->isi_jawaban }}
                         </span>
                         <span class="text-sm">
-                            <em>pada {{ date('j M Y | h:i a', strtotime($jawaban->created_at)) }}</em>
+                            <em>diunggah {{ $jawaban->created_at->diffForHumans() }}</em>
                         </span>
                     </div>
                 </div>
@@ -85,37 +85,24 @@
 
             </div>
             <div class="col-md-3">
-                <div class="info-box bg-powder-orange-soft">
-                    <div class="row">
-                        <div class="col-md-12 p-2 pl-3">
-                            <div class="info-box-content text-center">
-                                <span class="info-box-text">Dibuat</span>
-                                <span class="info-box-number">
-                                    {{ date('j M Y | h:i a', strtotime($pertanyaan->created_at)) }}
-                                </span>
-                            </div>
-                            <hr>
-                            <div class="info-box-content text-center">
-                                <span class="info-box-text">Terakhir Diupdate</span>
-                                <span class="info-box-number">
-                                    {{ date('j M Y | h:i a', strtotime($pertanyaan->updated_at)) }}
-                                </span>
-                            </div>
-                            <hr>
-                            <div class="info-box-content text-center">
-                                <span class="info-box-text">Ditanyakan Oleh</span>
-                                <div class="mb-1 mt-1">
-                                    <img src="{{ is_null($pertanyaan->users->profil->user_img) ? asset('/images/default_pic.png') : asset('/images/'. $pertanyaan->users->profil->user_img)}}"
-                                        alt="user" class="img-user">
-                                </div>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">{{ $pertanyaan->users->name }}</span>
-                                    <span class="info-box-number">Reputasi: 50</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card bg-powder-orange-soft">
+                    <div class="card-body text-center">
+                        <span class="text-muted">Dibuat</span>
+                        <p class="text-bold text-muted">
+                            {{ $pertanyaan->created_at->diffForHumans() }}
+                        </p>
+                        <hr>
+                        <span class="text-muted">Terakhir Diupdate</span>
+                        <p class="text-bold text-muted">
+                            {{ $pertanyaan->updated_at->diffForHumans() }}
+                        </p>
+                        <hr>
+                        <p class="text-muted">Ditanyakan Oleh</p>
+                        <img src="{{ is_null($pertanyaan->users->profil->user_img) ? asset('/images/default_pic.png') : asset('/images/'. $pertanyaan->users->profil->user_img)}}"
+                            alt="user" class="img-user mt-0 mb-2">
+                        <p class="mb-0">{{ $pertanyaan->users->name }}</p>
+                        <p>Reputasi: 50</p>
                     </div>
-
                 </div>
             </div>
         </div>

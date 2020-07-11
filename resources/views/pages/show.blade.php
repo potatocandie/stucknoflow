@@ -40,15 +40,17 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="row">
-                    <div class="col-md-1 text-center">
-                        <div>
-                            <a href="#"><i class="fa fa-caret-up fa-3x text-gray"></i></a>
+                    <div class="col-md-1 text-center" data-pertanyaanid="{{ $pertanyaan->id }}">
+                        <div data-like="true">
+                            <a href="#" class="vote-like"><i
+                                    class="fa fa-caret-up fa-3x up-vote {{ Auth::check() ? (Auth::user()->likes()->where('pertanyaan_id', $pertanyaan->id)->first() ? ( (Auth::user()->likes()->where('pertanyaan_id', $pertanyaan->id)->first()->like === 1) ? 'text-powder-orange' : 'text-gray') : 'text-gray') : 'text-gray' }}"></i></a>
                         </div>
                         <div>
-                            <span class="h4">0</span>
+                            <span class="h4" id="count">{{ $count }}</span>
                         </div>
-                        <div>
-                            <a href="#"><i class="fa fa-caret-down fa-3x text-gray"></i></a>
+                        <div data-like="false">
+                            <a href="#" class="vote-like"><i
+                                    class="fa fa-caret-down fa-3x down-vote {{ Auth::check() ? (Auth::user()->likes()->where('pertanyaan_id', $pertanyaan->id)->first() ? ( (Auth::user()->likes()->where('pertanyaan_id', $pertanyaan->id)->first()->like === 0) ? 'text-powder-orange' : 'text-gray') : 'text-gray') : 'text-gray' }}"></i></a>
                         </div>
                     </div>
                     <div class="col-md-10">
@@ -77,7 +79,7 @@
                             {{ $jawaban->isi_jawaban }}
                         </span>
                         <span class="text-sm">
-                            <em>pada {{ date('j M Y | h:i a', strtotime($jawaban->created_at)) }}</em>
+                            <em>diunggah {{ $jawaban->created_at->diffForHumans() }}</em>
                         </span>
                     </div>
                 </div>
@@ -112,37 +114,24 @@
                 @endif
             </div>
             <div class="col-md-3">
-                <div class="info-box bg-powder-orange-soft">
-                    <div class="row">
-                        <div class="col-md-12 p-2 pl-3">
-                            <div class="info-box-content text-center">
-                                <span class="info-box-text">Dibuat</span>
-                                <span class="info-box-number">
-                                    {{ date('j M Y | h:i a', strtotime($pertanyaan->created_at)) }}
-                                </span>
-                            </div>
-                            <hr>
-                            <div class="info-box-content text-center">
-                                <span class="info-box-text">Terakhir Diupdate</span>
-                                <span class="info-box-number">
-                                    {{ date('j M Y | h:i a', strtotime($pertanyaan->updated_at)) }}
-                                </span>
-                            </div>
-                            <hr>
-                            <div class="info-box-content text-center">
-                                <span class="info-box-text">Ditanyakan Oleh</span>
-                                <div class="mb-1 mt-1">
-                                    <img src="{{ is_null($pertanyaan->users->profil->user_img) ? asset('/images/default_pic.png') : asset('/images/'. $pertanyaan->users->profil->user_img)}}"
-                                        alt="user" class="img-user">
-                                </div>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">{{ $pertanyaan->users->name }}</span>
-                                    <span class="info-box-number">Reputasi: 50</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card bg-powder-orange-soft">
+                    <div class="card-body text-center">
+                        <span class="text-muted">Dibuat</span>
+                        <p class="text-bold text-muted">
+                            {{ $pertanyaan->created_at->diffForHumans() }}
+                        </p>
+                        <hr>
+                        <span class="text-muted">Terakhir Diupdate</span>
+                        <p class="text-bold text-muted">
+                            {{ $pertanyaan->updated_at->diffForHumans() }}
+                        </p>
+                        <hr>
+                        <p class="text-muted">Ditanyakan Oleh</p>
+                        <img src="{{ is_null($pertanyaan->users->profil->user_img) ? asset('/images/default_pic.png') : asset('/images/'. $pertanyaan->users->profil->user_img)}}"
+                            alt="user" class="img-user mt-0 mb-2">
+                        <p class="mb-0">{{ $pertanyaan->users->name }}</p>
+                        <p>Reputasi: 50</p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -156,7 +145,8 @@
     var buka_jawaban = document.getElementById('buka_jawaban');
     var form_jawaban = document.getElementById('form_jawaban');
 
-    buka_jawaban.addEventListener("click", function(event){
+    if (buka_jawaban != null) {
+        buka_jawaban.addEventListener("click", function(event){
         event.preventDefault();
         if(this.innerText === 'Jawab Pertanyaan'){
             this.innerText = 'Batal Jawab';
@@ -169,6 +159,71 @@
             this.classList.remove('btn-outline-danger');
             form_jawaban.style.display = 'none';
         }
+    });
+    }
+</script>
+
+<script type="text/javascript">
+    var isAuth = {{ Auth::check() }}
+    document.querySelectorAll('.vote-like').forEach(item => {
+        item.addEventListener('click', function(event){
+            event.preventDefault();
+            
+            if (isAuth == 1) {
+                pertanyaanId = event.target.parentNode.parentNode.parentNode.dataset['pertanyaanid'];
+            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            var postLikeAPI = '/like';
+            var isLike = false;
+            if (event.target.parentNode.parentNode.dataset['like'] == 'true') {
+                isLike = true;
+            } else if (event.target.parentNode.parentNode.dataset['like'] == 'false') {
+                isLike = false;
+            }
+            
+            fetch(postLikeAPI, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain, */*",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": token
+                        },
+                    method: 'post',
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        isLike: isLike,
+                        pertanyaan_id: pertanyaanId,
+                        _token: token
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("HTTP error " + response.status);
+                    }
+                    return response.text();
+                })
+                .then((data) => {
+                    var object = JSON.parse(data);
+
+                    document.getElementById('count').innerText = object['count'];
+                    if (object['isLike'] == true) {
+                        document.querySelector('.up-vote').classList.remove('text-gray');
+                        document.querySelector('.up-vote').classList.add('text-powder-orange');
+                        document.querySelector('.down-vote').classList.remove('text-powder-orange');
+                        document.querySelector('.down-vote').classList.add('text-gray');
+                    } else if (object['isLike'] == false){
+                        document.querySelector('.up-vote').classList.remove('text-powder-orange');
+                        document.querySelector('.up-vote').classList.add('text-gray');
+                        document.querySelector('.down-vote').classList.remove('text-gray');
+                        document.querySelector('.down-vote').classList.add('text-powder-orange');
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            } else {
+                window.location = '/login';
+            }
+        })
     });
 </script>
 @endpush

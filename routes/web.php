@@ -20,6 +20,8 @@ Route::put('/pertanyaan/{id}/update', ['as' => 'pertanyaan.update', 'uses' => 'P
 Route::get('/pertanyaan/{id}/show', ['as' => 'pertanyaan.show', 'uses' => 'PertanyaanController@show']);
 Route::delete('/pertanyaan/{id}/destroy', ['as' => 'pertanyaan.destroy', 'uses' => 'PertanyaanController@destroy']);
 
+Route::post('/like', ['as' => 'pertanyaan.like', 'uses' => 'PertanyaanController@postLike']);
+
 Route::get('/tag', ['as' => 'tag.index', 'uses' => 'TagController@index']);
 Route::post('/tag', ['as' => 'tag.store', 'uses' => 'TagController@store']);
 Route::get('/tag/{id}', ['as' => 'tag.show', 'uses' => 'TagController@show']);
