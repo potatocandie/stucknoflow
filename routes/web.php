@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
 Route::get('/', ['as' => 'pages.index', 'uses' => 'PagesController@index']);
 Route::get('/about', ['as' => 'pages.about', 'uses' => 'PagesController@about']);
 Route::get('/show/{id}', ['as' => 'pages.show', 'uses' => 'PagesController@show']);
@@ -22,3 +26,8 @@ Route::get('/tag/{id}', ['as' => 'tag.show', 'uses' => 'TagController@show']);
 Route::get('/tag/{id}/edit', ['as' => 'tag.edit', 'uses' => 'TagController@edit']);
 Route::post('/tag/{id}', ['as' => 'tag.update', 'uses' => 'TagController@update']);
 Route::delete('/tag/{id}', ['as' => 'tag.destroy', 'uses' => 'TagController@destroy']);
+
+Route::get('/profil/{id}/edit', ['as' => 'profil.edit', 'uses' => 'ProfilController@edit']);
+Route::put('/profil/{id}/update', ['as' => 'profil.update', 'uses' => 'ProfilController@update']);
+
+Route::post('/jawaban/{id_pertanyaan}', ['as' => 'jawaban.store', 'uses' => 'JawabanController@store']);

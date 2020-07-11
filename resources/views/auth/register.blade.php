@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-success">{{ __('Daftar Stucknoflow') }}</div>
+                <div class="card-header bg-powder text-powder">{{ __('Daftar Stucknoflow') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -73,7 +73,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn bg-maroon btn-block">
+                                <button type="submit" class="btn btn-outline-success btn-block">
                                     {{ __('Daftar') }}
                                 </button>
                             </div>

@@ -13,7 +13,7 @@
                 <form action="{{ route('tag.update', $tag->id) }}" method="POST">
                     @csrf
                     <label for="isi_tag">Nama Tag Baru: </label>
-                    <input type="text" class="form-control mt-2" name="isi_tag" value={{ $tag->name }}>
+                    <input type="text" class="form-control mt-2" name="isi_tag" value={{ $tag->isi_tag }}>
                     <button type="submit" class="btn btn-success btn-block mt-3">Update Tag</button>
                 </form>
             </div>

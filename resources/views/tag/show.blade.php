@@ -42,7 +42,7 @@
                         </td>
                         <td scope="col">
                             <a href="{{ route('pertanyaan.show', $pertanyaan->id)}}">
-                                <button class="btn bg-maroon">Detail</button>
+                                <button class="btn btn-outline-primary">Detail</button>
                             </a>
                         </td>
                     </tr>

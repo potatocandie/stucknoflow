@@ -4,14 +4,14 @@
 
 @section('content')
 
-<div class="jumbotron text-center bg-primary">
+<div class="jumbotron text-center bg-powder-orange">
     <h1 class="display-4"><strong>Stucknoflow</strong></h1>
     <p class="lead"><strong>Kami buat karena tanpa karena</strong> :D</p>
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <div class="info-box bg-success">
+        <div class="info-box bg-powder">
             <span class="info-box-icon"><i class="fab fa-github"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Maftukhatul Arifin</span>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="info-box bg-success">
+        <div class="info-box bg-powder">
             <span class="info-box-icon"><i class="fab fa-github"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Riski</span>

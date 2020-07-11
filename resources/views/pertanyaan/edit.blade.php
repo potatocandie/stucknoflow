@@ -6,25 +6,28 @@
 <link rel="stylesheet" href="{{ asset('/css/select2.min.css') }}">
 <style>
     .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-        color: #fff;
+        color: #f48024;
     }
 
     .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #d81b60;
-        border: 1px solid #d81b60;
+        background-color: #f7aa6d;
+        border: 1px solid #f48024;
+        color: #fff;
     }
 </style>
+
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 @endsection
 
 @section('content')
 
 <div class="card shadow-lg">
-    <div class="card-header bg-success">
+    <div class="card-header bg-powder text-powder">
         <span class="h5"><strong>Edit Pertanyaan</strong></span>
         <div class="lead text-md mt-2">
             <strong>
-                <a href="{{ route('pertanyaan.index')}}" class="text-light">Pertanyaan</a>
-                <span class="text-light">| Edit Pertanyaan</span>
+                <a href="{{ route('pertanyaan.index')}}" class="text-powder">Pertanyaan</a>
+                <span class="text-gray">| Edit Pertanyaan</span>
             </strong>
         </div>
     </div>
@@ -46,11 +49,12 @@
             </div>
             <div class="mb-3">
                 <label for="isi">Detail Pertanyaan:</label>
-                <textarea name="isi" type="text" class="form-control" rows="5">{{ $pertanyaan->isi }}</textarea>
+                <textarea name="isi" type="text" class="form-control my-editor"
+                    rows="5">{{ $pertanyaan->isi }}</textarea>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="submit" class="btn bg-maroon btn-block">Update Pertanyaan</button>
+                    <button type="submit" class="btn btn-outline-primary btn-block">Update Pertanyaan</button>
                 </div>
             </div>
         </form>
@@ -75,5 +79,59 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+</script>
+
+<script>
+    var editor_config = {
+      path_absolute : "/",
+      selector: "textarea.my-editor",
+      plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
+      ],
+      menubar: false,
+      toolbar: "insertfile undo redo | styleselect | bold italic | bullist numlist outdent indent | link image media",
+      style_formats: [
+                { title: 'Blocks', items: [
+                { title: 'Paragraph', format: 'p' },
+                { title: 'Blockquote', format: 'blockquote' },
+                { title: 'Div', format: 'div' },
+                { title: 'Pre', format: 'pre' }
+            ]},
+                { title: 'Inline', items: [
+                { title: 'Bold', format: 'bold' },
+                { title: 'Italic', format: 'italic' },
+                { title: 'Underline', format: 'underline' },
+                { title: 'Strikethrough', format: 'strikethrough' },
+                { title: 'Superscript', format: 'superscript' },
+                { title: 'Subscript', format: 'subscript' },
+                { title: 'Code', format: 'code' }
+            ]}],
+      relative_urls: false,
+      file_browser_callback : function(field_name, url, type, win) {
+        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+  
+        var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+        if (type == 'image') {
+          cmsURL = cmsURL + "&type=Images";
+        } else {
+          cmsURL = cmsURL + "&type=Files";
+        }
+  
+        tinyMCE.activeEditor.windowManager.open({
+          file : cmsURL,
+          title : 'Filemanager',
+          width : x * 0.8,
+          height : y * 0.8,
+          resizable : "yes",
+          close_previous : "no"
+        });
+      }
+    };
+  
+    tinymce.init(editor_config);
 </script>
 @endpush

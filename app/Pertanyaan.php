@@ -12,7 +12,7 @@ class Pertanyaan extends Model
 
     public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function tag()
@@ -22,6 +22,11 @@ class Pertanyaan extends Model
 
     public function jawaban()
     {
-        return $this->hasMany('App\Jawaban');
+        return $this->hasMany('App\Jawaban', 'pertanyaan_id');
+    }
+
+    public function likes()
+    {
+        return $this->belongsTo('App\Like');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tag;
+use Validator;
 
 class TagController extends Controller
 {
@@ -32,34 +33,50 @@ class TagController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'isi_tag' => ['required', 'max:255']
         ]);
+
+        if ($validator->fails()) {
+            $errors = '';
+            foreach ($validator->messages()->all() as $message) {
+                $errors .= $message . "<br>";
+            }
+            return back()->with('toast_error', $errors)->withInput();
+        }
 
         $tag = Tag::find($id);
         $tag->isi_tag = $request->input('isi_tag');
         $tag->save();
 
-        return redirect()->route('tag.show', $tag->id);
+        return redirect()->route('tag.show', $tag->id)->withToastSuccess('Tag Telah Diupdate!');
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'isi_tag' => ['required', 'max:255']
         ]);
+
+        if ($validator->fails()) {
+            $errors = '';
+            foreach ($validator->messages()->all() as $message) {
+                $errors .= $message . "<br>";
+            }
+            return back()->with('toast_error', $errors)->withInput();
+        }
 
         Tag::create([
             'isi_tag' => $request->isi_tag
         ])->save();
 
-        return redirect()->route('tag.index');
+        return redirect()->route('tag.index')->withToastSuccess('Tag Berhasil Disimpan!');
     }
 
     public function destroy($id)
     {
         $tag = Tag::find($id);
         $tag->delete();
-        return redirect()->route('tag.index');
+        return redirect()->route('tag.index')->withToastSuccess('Tag Berhasil Dihapus!');
     }
 }

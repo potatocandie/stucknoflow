@@ -1,5 +1,5 @@
 <div class="card shadow-lg">
-    <div class="card-header bg-success">
+    <div class="card-header bg-powder">
         <?php 
             $nameSlice = explode(" ", Auth::user()->name); 
             $last = count($nameSlice);  
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="info-box bg-success">
+        <div class="info-box bg-powder-orange">
             <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Rputasi</span>

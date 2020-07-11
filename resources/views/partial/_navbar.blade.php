@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-success">
+<nav class="navbar navbar-expand bg-powder-dark">
     <ul class="navbar-nav">
         <li class="nav-item">
             <strong><span class="nav-link text-light">Stucknoflow</span></strong>
@@ -29,6 +29,7 @@
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
+                <a class="dropdown-item" href="{{ route('profil.edit', Auth::id()) }}">Profil</a>
                 <a class="dropdown-item" href="{{ route('pertanyaan.index') }}">Pertanyaan</a>
                 <a class="dropdown-item" href="{{ route('tag.index') }}">Tag</a>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

@@ -6,6 +6,7 @@ use App\Pertanyaan;
 use App\Tag;
 use Illuminate\Http\Request;
 use Auth;
+use Validator;
 
 class PertanyaanController extends Controller
 {
@@ -30,10 +31,18 @@ class PertanyaanController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'judul' => ['required', 'unique:pertanyaan', 'max:255'],
             'isi' => ['required']
         ]);
+
+        if ($validator->fails()) {
+            $errors = '';
+            foreach ($validator->messages()->all() as $message) {
+                $errors .= $message . "<br>";
+            }
+            return back()->with('toast_error', $errors)->withInput();
+        }
 
         $user = Auth::id();
 
@@ -45,7 +54,7 @@ class PertanyaanController extends Controller
 
         $pertanyaan->tag()->sync($request->tag, true);
 
-        return redirect()->route('pertanyaan.index');
+        return redirect()->route('pertanyaan.index')->withToastSuccess('Pertanyaan Terkirim!');
     }
 
     public function show($id)
@@ -65,10 +74,18 @@ class PertanyaanController extends Controller
     {
         $pertanyaan = Pertanyaan::findOrFail($id);
 
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'judul' => ['required', 'max:255', 'unique:pertanyaan,judul,' . $pertanyaan->id],
             'isi' => ['required']
         ]);
+
+        if ($validator->fails()) {
+            $errors = '';
+            foreach ($validator->messages()->all() as $message) {
+                $errors .= $message . "<br>";
+            }
+            return back()->with('toast_error', $errors)->withInput();
+        }
 
         $pertanyaan->judul = $request->judul;
         $pertanyaan->isi = $request->isi;
@@ -80,7 +97,7 @@ class PertanyaanController extends Controller
             $pertanyaan->tag()->sync([]);
         }
 
-        return redirect()->route('pertanyaan.index');
+        return redirect()->route('pertanyaan.index')->withToastSuccess('Pertanyaan Telah Diupdate!');
     }
 
     public function destroy($id)
@@ -88,6 +105,6 @@ class PertanyaanController extends Controller
         $pertanyaan = Pertanyaan::findOrFail($id);
         $pertanyaan->delete();
 
-        return redirect()->route('pertanyaan.index');
+        return redirect()->route('pertanyaan.index')->withToastSuccess('Pertanyaan Berhasil Dihapus!');
     }
 }

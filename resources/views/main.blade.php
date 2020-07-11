@@ -4,9 +4,12 @@
 <head>
     @include('partial._head')
     @yield('stylesheet')
+    @include('partial._stylesheet')
 </head>
 
 <body class="hold-transition sidebar-mini">
+    @include('sweetalert::alert')
+
     @include('partial._navbar')
     <div class="container-fluid">
         <section class="content mt-3">

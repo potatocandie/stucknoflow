@@ -5,8 +5,8 @@
 @section('content')
 
 <div class="card shadow-lg">
-    <div class="card-header bg-success">
-        <a href="{{ route('pertanyaan.create')}}" class="btn bg-maroon px-5">Buat Pertanyaan</a>
+    <div class="card-header bg-powder text-powder">
+        <a href="{{ route('pertanyaan.create')}}" class="btn bg-primary px-5">Buat Pertanyaan</a>
     </div>
     <div class="card-body p-0">
         <table class="table table-striped">

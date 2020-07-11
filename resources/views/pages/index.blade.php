@@ -4,13 +4,13 @@
 
 @section('content')
 
-<div class="jumbotron text-center bg-success">
+<div class="jumbotron text-center bg-powder-orange">
     <h1 class="display-4"><strong>Stucknoflow</strong></h1>
     <p class="lead">Karena Anda bisa <strong>Stuck</strong> Sewaktu-Waktu :)</p>
 </div>
 
 <div class="card shadow-lg">
-    <div class="card-header bg-success text-center">
+    <div class="card-header bg-powder text-center text-powder">
         <span><strong>Ada Pertanyaan Nih</strong> Kuy Bantu</span>
     </div>
     <div class="card-body p-0">
