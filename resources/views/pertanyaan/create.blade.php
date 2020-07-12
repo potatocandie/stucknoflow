@@ -6,12 +6,13 @@
 <link rel="stylesheet" href="{{ asset('/css/select2.min.css') }}">
 <style>
     .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-        color: #fff;
+        color: #f48024;
     }
 
     .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #d81b60;
-        border: 1px solid #d81b60;
+        background-color: #f7aa6d;
+        border: 1px solid #f48024;
+        color: #fff;
     }
 </style>
 
@@ -21,14 +22,10 @@
 @section('content')
 
 <div class="card shadow-lg">
-    <div class="card-header bg-success">
-        <span class="h5"><strong>Buat Pertanyaan</strong></span>
-        <div class="lead text-md mt-2">
-            <strong>
-                <a href="{{ route('pertanyaan.index')}}" class="text-light">Pertanyaan</a>
-                <span class="text-light">| Buat Pertanyaan</span>
-            </strong>
-        </div>
+    <div class="card-header bg-powder text-powder">
+        <p class="h5"><strong>Buat Pertanyaan</strong></p>
+        <a href="{{ url('/pertanyaan') }}" class="mr-3"><i class="fas fa-reply text-powder mr-2"></i>Semua
+            Pertanyaan</a>
     </div>
     <div class="card-body login-card-body">
         <form action="{{ route('pertanyaan.store') }}" method="post">
@@ -51,7 +48,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="submit" class="btn bg-maroon btn-block">Kirim Pertanyaan</button>
+                    <button type="submit" class="btn btn-outline-primary btn-block">Kirim Pertanyaan</button>
                 </div>
             </div>
         </form>

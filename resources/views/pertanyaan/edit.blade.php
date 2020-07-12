@@ -23,13 +23,9 @@
 
 <div class="card shadow-lg">
     <div class="card-header bg-powder text-powder">
-        <span class="h5"><strong>Edit Pertanyaan</strong></span>
-        <div class="lead text-md mt-2">
-            <strong>
-                <a href="{{ route('pertanyaan.index')}}" class="text-powder">Pertanyaan</a>
-                <span class="text-gray">| Edit Pertanyaan</span>
-            </strong>
-        </div>
+        <p class="h5"><strong>Edit Pertanyaan</strong></p>
+        <a href="{{ url('/pertanyaan') }}" class="mr-3"><i class="fas fa-reply text-powder mr-2"></i>Semua
+            Pertanyaan</a>
     </div>
     <div class="card-body login-card-body">
         <form action="{{ route('pertanyaan.update', $pertanyaan->id) }}" method="post">

@@ -5,6 +5,7 @@
 @section('content')
 <div class="card shadow-lg">
     <div class="card-header d-flex align-items-center">
+        <a href="{{ url('/tag') }}" class="mr-3"><i class="fas fa-reply text-powder mr-2"></i>Semua Tag</a>
         <span class="sh5"><strong>{{ ucfirst($tag->isi_tag) }}</strong> : {{ $tag->pertanyaan()->count()}}
             Pertanyaan</span>
         <div class="ml-auto d-flex align-items-center"">

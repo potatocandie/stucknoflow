@@ -5,8 +5,9 @@
 @section('content')
 
 <div class="jumbotron text-center bg-powder-orange">
-    <h1 class="display-4"><strong>Stucknoflow</strong></h1>
-    <p class="lead"><strong>Kami buat karena tanpa karena</strong> :D</p>
+    <p class="text-light h5">Dibuat dengan penuh perasaan <i class="far fa-kiss-wink-heart text-light"></i></p>
+    <p class="h1 text-light jumbo-text"><strong><span class="bg-powder-orange-dark px-2">Stuck</span>noflow</strong>
+    </p>
 </div>
 
 <div class="row">
@@ -29,5 +30,6 @@
         </div>
     </div>
 </div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 @endsection

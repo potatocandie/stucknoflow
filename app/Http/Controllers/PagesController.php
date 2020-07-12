@@ -9,7 +9,7 @@ class PagesController extends Controller
 {
     public function index()
     {
-        $pertanyaan = Pertanyaan::all();
+        $pertanyaan = Pertanyaan::orderBy('created_at', 'desc')->paginate(4);
         return view('pages.index', ['pertanyaan' => $pertanyaan]);
     }
 

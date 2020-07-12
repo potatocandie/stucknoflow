@@ -5,8 +5,10 @@
 @section('content')
 
 <div class="jumbotron text-center bg-powder-orange">
-    <h1 class="display-4"><strong>Stucknoflow</strong></h1>
-    <p class="lead">Karena Anda bisa <strong>Stuck</strong> Sewaktu-Waktu :)</p>
+    <p class="h1 text-light jumbo-text"><strong><span class="bg-powder-orange-dark px-2">Stuck</span>noflow</strong>
+    </p>
+    <span class="text-light h5">Karena Kamu bisa <strong>Stuck</strong> Sewaktu-Waktu <i
+            class="far fa-dizzy text-light"></i></span>
 </div>
 
 <div class="card shadow-lg">
@@ -42,6 +44,10 @@
         </table>
     </div>
 </div>
-
+<div class="row justify-content-center mt-5">
+    <div class="text-center">
+        {!! $pertanyaan->links() !!}
+    </div>
+</div>
 
 @endsection

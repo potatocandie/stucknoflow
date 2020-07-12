@@ -29,4 +29,9 @@ class Pertanyaan extends Model
     {
         return $this->belongsTo('App\Like');
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
 }
